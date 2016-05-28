@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.vito.messageintercept"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Activity.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Activity.SetActivity">
+        </activity>
+
+        <receiver android:name=".BroadcastReceiver.MessageReceiver">
+            <!--这里的优先级为1000，假定你手机中没有安装其他第三方短信拦截软件，如360等，否则其他第三方软件拦截权限过高导致你都应用程序拦截不到短信-->
+            <intent-filter android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+                <action android:name="com.vito.provider.Telephony.SMS"/>
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
